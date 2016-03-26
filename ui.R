@@ -5,9 +5,14 @@ shinyUI(fluidPage(
     
     sidebarPanel(
       h2("Choose parameters:"),
-      fileInput("fileName", label = "Data:")
+      fileInput("fileName", label = "Data:"),
+      textInput("graphTitle", label = "Graph Title:", value = "Title"),
+      textInput("yAxis", label = "Y Axis:", value = "Numbers"),
+      textInput("xAxis", label = "X Axis:", value = "Groups")
     ),
     
-    mainPanel()
+    mainPanel(
+      plotOutput('graph')
+    )
   )
 ))
