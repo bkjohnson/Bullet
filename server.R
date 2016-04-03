@@ -82,8 +82,8 @@ shinyServer(function(input, output){
     graphTitle = input$graphTitle
     yTitle = input$yAxis
     xTitle = input$xAxis
-    ymin = 0    # temporary
-    ymax = 100  # temporary
+    ymin = input$yMin
+    ymax = input$yMax
     numticks = 20
     intervals = c(0.8, 0.95, 0.99)
     bulletplot(file$datapath, ymin, ymax, numticks, intervals, graphTitle, xTitle, yTitle)
