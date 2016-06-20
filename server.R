@@ -1,10 +1,10 @@
 
 shinyServer(function(input, output){
    
-  bulletplot=function(file = '', ymin = 0, ymax = 100, numticks = 20, intervals = c(.8, .95, .99), graphTitle = '', xTitle = '', yTitle = '') {
+  bulletplot=function(file = '', ymin = 0, ymax = 100, intervals = c(.8, .95, .99), graphTitle = '', xTitle = '', yTitle = '') {
     data = read.csv(file)
     ## Set up window
-    graphframe(names(data), ymin, ymax, numticks, graphTitle, yTitle, xTitle)
+    graphframe(names(data), ymin, ymax, graphTitle, yTitle, xTitle)
     
     ## Get the values for each bullet
     x = 1
@@ -28,15 +28,16 @@ shinyServer(function(input, output){
   }
    
   ## Function that initializes the graph window and sets up the axes and titles
-  graphframe = function(namelist, ymin, ymax, numticks, graphTitle, yTitle, xTitle) {
+  graphframe = function(namelist, ymin, ymax, graphTitle, yTitle, xTitle) {
     xax = c(0, length(namelist) + 1)
     yax = c(ymin, ymax)
     plot.new()
     plot.window(xax, yax)
     title(main = graphTitle, ylab = yTitle, xlab = xTitle)
     axis(1, at = 1:length(namelist), lab = c(namelist))
-    axis(2, at = seq(ymin, ymax, ((ymax - ymin)/numticks)), lab = seq(ymin, ymax, ((ymax - ymin)/numticks)))
+    axis(2)
     box()
+    grid(nx = NA, ny = NULL, lty="solid")
   }
    
   ## Function that computes standard error for 3 given confidence intervals
@@ -84,8 +85,7 @@ shinyServer(function(input, output){
     xTitle = input$xAxis
     ymin = input$yMin
     ymax = input$yMax
-    numticks = 20
     intervals = c(0.8, 0.95, 0.99)
-    bulletplot(file$datapath, ymin, ymax, numticks, intervals, graphTitle, xTitle, yTitle)
+    bulletplot(file$datapath, ymin, ymax, intervals, graphTitle, xTitle, yTitle)
    })
  })
