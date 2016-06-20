@@ -24,7 +24,8 @@ shinyServer(function(input, output){
       x = x + 1
     }
     
-    bulletLegend(x * .8, ymax * .9, intervals)
+    labels = sprintf("%1.0f%%",intervals * 100)
+    legend(x * .8, ymax * .9, legend = labels, title = "Confidence Intervals", lty=1, lwd = 3, seg.len = c(0.5, 2, 4), xjust = 0.5)
   }
    
   ## Function that initializes the graph window and sets up the axes and titles
@@ -61,18 +62,6 @@ shinyServer(function(input, output){
     }
     ## Draw the mean line after so any bulletcolor change won't affect it
     segments(x - 0.16, bulletmean, x + 0.16)
-  }
-   
-  ## Function that creates the legend for confidence intervals
-  bulletLegend = function(x, y, intervals) {
-    widths = c(0.1, 0.06, 0.01)
-    text(x, y, "Confidence")
-    spacing = .02
-    for (i in 1:3){
-      y = y - .1 * y
-      text(x + x * .1, y, intervals[i])
-      rect(x * .9 - widths[i], y - spacing * y, x * .9 + widths[i], y +  spacing * y, density = -1, border = NA, col = rgb( 0, 0, 0, 255, maxColorValue=255))
-    }
   }
   
   output$graph <- renderPlot({
