@@ -24,7 +24,7 @@ shinyServer(function(input, output){
       x = x + 1
     }
     
-    labels = sprintf("%1.0f%%",intervals * 100)
+    labels = sprintf("%1.0f%%",rev(intervals) * 100)
     legend(x * .8, ymax * .9, legend = labels, title = "Confidence Intervals", lty=1, lwd = 3, seg.len = c(0.5, 2, 4), xjust = 0.5)
   }
    
